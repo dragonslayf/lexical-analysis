@@ -1,27 +1,5 @@
-    Overview
-    For many middle-class Americans, the 1920s was a decade of unprecedented prosperity. Rising earnings generated more disposable income for the purchase of consumer goods.
-    Henry Ford’s advances in assembly-line efficiency created a truly affordable automobile, making car ownership a possibility for many Americans.
-    Advertising became as big an industry as the manufactured goods that advertisers represented, and many families relied on new forms of credit to increase their consumption levels as they strived for a new American standard of living.
-    Consumption in the 1920s
-    The prosperity of the 1920s led to new patterns of consumption, or purchasing consumer goods like radios, cars, vacuums, beauty products or clothing.
-    The expansion of credit in the 1920s allowed for the sale of more consumer goods and put automobiles within reach of average Americans. Now individuals who could not afford to purchase a car at full price could pay for that car over time -- with interest, of course!
-    With so many new products and so many Americans eager to purchase them, advertising became a central institution in this new consumer economy.
-    Affordable automobiles
-    New possibilities of mobility opened up in the 1920s for a large percentage of the US population. Once a luxury item, cars became within reach for many more consumers as automobile manufacturers began to mass produce automobiles. The most significant innovation of this era was Henry Ford’s Model T Ford, which made car ownership available to the average American.
-    By the early twentieth century, hundreds of car manufacturers existed. But they all made products that were too expensive for most Americans. Ford’s innovation lay in his use of mass production to manufacture automobiles. He revolutionized industrial work by perfecting the assembly line, which enabled him to lower the Model T’s price from $850 in 1908 to $300 in 1924, making car ownership a real possibility for a large share of the population. Soon, people could buy used Model Ts for as little as five dollars, allowing students and others with low incomes to enjoy the freedom and mobility of car ownership. By 1929, there were over 23 million automobiles on American roads.
-    An advertisement entitled “Watch the Fords Go By” features drawings of two Ford automobiles. The prices are listed at $780 and $725, along with details about each model. In the center of the advertisement, an illustration shows a couple driving along an idyllic country road. At the bottom is the text “Ford Cars Sold by Russell Motor Car Co. 2120-2130 Canal Street, New Orleans, LA. See Our Exhibit Booth at Show”.
-    An advertisement entitled “Watch the Fords Go By” features drawings of two Ford automobiles. The prices are listed at 
-    780
-    780and780, a, n, d725, along with details about each model. In the center of the advertisement, an illustration shows a couple driving along an idyllic country road. At the bottom is the text “Ford Cars Sold by Russell Motor Car Co. 2120-2130 Canal Street, New Orleans, LA. See Our Exhibit Booth at Show”.
-    This advertisement for Ford’s Model T ran in the New Orleans Times Picayune in 1911. Note that the prices had not yet dropped far from their initial high of $850. Image credit: OpenStax College.
-    The assembly line helped Ford reduce labor costs within the production process by moving the product from one team of workers to the next, each of them completing a step so simple that workers had to be—in Ford’s words—“no smarter than an ox.” Ford’s reliance on the assembly line placed emphasis on efficiency over craftsmanship.
-    Ford’s focus on cheap mass production brought both benefits and disadvantages to his workers. Ford would not allow his workers to unionize, and the boring, repetitive nature of the assembly line work generated a high turnover rate.
-    A photograph shows assembly line workers producing Ford automobiles.
-    In this image from a 1928 Literary Digest interview with Henry Ford, workers on an assembly line produce new models of Ford automobiles. Image credit: OpenStax College
-    On the other hand, Ford doubled workers’ pay to five dollars a day and standardized the workday to eight hours—a reduction from the norm of the time. Ford’s assembly line also offered greater racial equality than most employment of the time; he paid white and black workers equally. Seeking these wages, many African Americans from the South moved to Detroit and other large northern cities to work in factories. Ford shaped the nation’s mode of industrialism to rely on paying decent wages so that workers could afford to be the consumers of their own products.
-    The automobile changed the face of America, both economically and socially. Industries like glass, steel, and rubber processing expanded to keep up with auto production. The oil industry in California, Oklahoma, and Texas expanded as Americans’ reliance on oil increased and the nation transitioned from a coal-based economy to one driven by petroleum.
-    The need for public roadways required local and state governments to fund a dramatic expansion of infrastructure, which permitted motels and restaurants to spring up and offer new services to millions of newly mobile Americans with cash to spend. With this new infrastructure, new shopping and living patterns emerged, and streetcar suburbs gave way to automobile suburbs as private automobile traffic on public roads began to replace mass transit on trains and trolleys.
-    Airplanes
-    The 1920s not only witnessed a transformation in ground transportation but also major changes in air travel. By the mid-1920s, men—as well as some pioneering women like the African American stunt pilot Bessie Coleman—had been flying for two decades. But there remained doubts about the suitability of airplanes for long-distance travel. Orville Wright, one of the pioneers of airplane technology in the United States, once famously declared, “No flying machine will ever fly from New York to Paris [because] no known motor can run at the requisite speed for four days without stopping.” However, in 1927, this skepticism was finally put to rest when Charles Lindbergh became the first person to fly solo across the Atlantic Ocean, flying from New York to Paris in 33 hours.
-
-    源程序词法分析完毕！
+reserved## identifier##punctuation##punctuation##punctuation##
+    reserved## identifier##punctuation## identifier##punctuation##rowComments##
+    blockComments##
+punctuation##undefined##
+源程序词法分析完毕！
