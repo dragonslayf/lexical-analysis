@@ -1,5 +1,105 @@
 reserved## identifier##punctuation##punctuation##punctuation##
-    reserved## identifier##punctuation## identifier##punctuation##rowComments##
-    blockComments##
+    identifier## operator## number##punctuation##
+    reserved## identifier## operator## punctuation##identifier## operator## number##punctuation##operator##number##punctuation##
+    identifier##punctuation##string##punctuation## operator## number##punctuation##
+    identifier##punctuation##string##punctuation## operator## number##punctuation##
+    identifier##punctuation##string##punctuation## operator## number##punctuation##
+    identifier##punctuation##string##punctuation## operator## number##punctuation##
+    identifier##punctuation##string##punctuation## operator## number##punctuation##
+    identifier##punctuation##string##punctuation## operator## number##punctuation##
+    identifier## operator## punctuation##string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation##punctuation##
+    identifier## operator## punctuation##string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation## string##punctuation##punctuation##
+    identifier##punctuation##number##punctuation## operator## number##punctuation##
+    identifier##punctuation##number##punctuation## operator## number##punctuation##
+    identifier##punctuation##punctuation##punctuation##
+    identifier##operator##identifier##punctuation##string##punctuation## identifier##operator##operator##identifier##punctuation##punctuation##
+    identifier##operator##identifier##punctuation##string##punctuation## identifier##operator##operator##identifier##punctuation##punctuation##
+    identifier##punctuation##punctuation##punctuation##
+    identifier## operator## identifier## operator## number##punctuation##
+    rowComments##
+    identifier## identifier## operator## identifier##punctuation##
+    identifier## identifier##punctuation##
+    
+    reserved##punctuation##number##punctuation##punctuation##
+        reserved##punctuation##identifier## operator## identifier## operator## identifier## operator## identifier## operator## identifier## operator## identifier##punctuation##punctuation##
+            identifier##punctuation##identifier##punctuation##punctuation##
+            identifier## operator## string##punctuation##
+            identifier## operator## identifier##punctuation##
+        punctuation##
+        reserved## identifier## operator## identifier##punctuation##identifier##punctuation##punctuation##
+        identifier##operator##punctuation##
+        identifier##operator##punctuation##
+        reserved##punctuation##identifier## operator## number## punctuation##punctuation## rowComments##
+            reserved##punctuation##identifier## operator## number##punctuation##punctuation##
+                identifier##punctuation##punctuation##punctuation##
+                identifier##operator##punctuation##
+            punctuation##
+            reserved## reserved##punctuation##identifier## operator## number##punctuation##punctuation##
+                identifier##punctuation##punctuation##punctuation##
+                identifier## operator## number##punctuation##
+            punctuation##
+            reserved##punctuation##
+                identifier## operator## string## operator## identifier##punctuation##
+                rowComments##
+                reserved##punctuation##reserved## identifier## operator## identifier##operator##identifier##punctuation##punctuation##punctuation## identifier## operator## identifier##operator##identifier##punctuation##punctuation##punctuation## identifier##operator##punctuation##punctuation##
+                    identifier## operator## identifier##operator##identifier## operator## string## operator## identifier##operator##identifier## operator## identifier##punctuation##
+                punctuation##
+                reserved## number##punctuation##
+            punctuation##
+            identifier## operator## identifier##punctuation##identifier##punctuation##punctuation##
+        punctuation##
+        reserved## identifier## operator## identifier##operator##identifier##punctuation##identifier##operator##identifier##punctuation## reserved##operator##punctuation##identifier##punctuation## identifier##punctuation##punctuation##punctuation##
+        reserved##punctuation##identifier## operator## identifier##operator##identifier##punctuation##punctuation##punctuation##punctuation##
+            identifier## operator## identifier##operator##identifier##punctuation##
+            identifier## operator## identifier##punctuation##
+            identifier##operator##punctuation##
+        punctuation##
+        reserved## reserved##punctuation##identifier##punctuation##identifier##punctuation##punctuation##punctuation##
+            reserved##punctuation##identifier## operator## identifier##punctuation##punctuation##
+                identifier## identifier## operator## identifier##punctuation##
+                reserved##punctuation##reserved## identifier## operator## number##punctuation## identifier## operator## number##punctuation## identifier##operator##punctuation##punctuation##
+                    reserved##punctuation##identifier## operator## identifier##punctuation##identifier##punctuation##punctuation##punctuation##
+                        identifier## operator## identifier##punctuation##
+                        identifier## operator## string##punctuation##
+                        identifier##punctuation##string##punctuation##operator##punctuation##
+                        reserved##punctuation##
+                    punctuation##
+                punctuation##
+                reserved##punctuation##operator##identifier##punctuation##punctuation##
+                    identifier## operator## string##punctuation##
+                    identifier##punctuation##string##punctuation##operator##punctuation##
+                punctuation##
+                identifier## operator## string##punctuation##
+                identifier## operator## identifier##punctuation##
+                identifier## operator## identifier##punctuation##
+            punctuation##
+            reserved##punctuation##
+                identifier##punctuation##identifier##punctuation##identifier##punctuation##punctuation##operator##punctuation##
+                identifier## operator## identifier##punctuation##identifier##punctuation## operator## string##punctuation##
+                identifier## operator## string##punctuation##
+                identifier## operator## identifier##punctuation## rowComments##
+                identifier## operator## identifier##punctuation##
+            punctuation##
+        punctuation##
+        reserved##punctuation##
+            reserved##punctuation##identifier## operator## string## operator## identifier## operator## string##punctuation##punctuation##rowComments##
+                identifier## operator## identifier##punctuation##
+                identifier##operator##punctuation##
+                identifier## operator## identifier##punctuation##
+                reserved##punctuation##identifier## operator## string##punctuation##punctuation##
+                    identifier##operator##punctuation##
+                    identifier## operator## number##punctuation##
+                punctuation##
+            punctuation##
+            reserved##punctuation##
+                identifier## operator## string##punctuation## rowComments##
+                identifier##punctuation##string##punctuation## identifier##punctuation## identifier##punctuation##punctuation##
+                identifier## operator## string##punctuation##
+                identifier##operator##punctuation##
+                identifier## operator## identifier##punctuation##
+            punctuation##
+        punctuation##
+    punctuation##
+    identifier##operator##identifier##punctuation##punctuation##punctuation##
+    identifier##operator##identifier##punctuation##punctuation##punctuation##
 punctuation##undefined##
-源程序词法分析完毕！

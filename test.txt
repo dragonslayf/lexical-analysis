@@ -1,4 +1,105 @@
 int main(){
-    int b, c;//this is a tst
-    /*but I am not sure if it is working well...*/
+    string += 1;
+    int a = (a << 1)->5;
+    tokenCnt["reserved"] = 0;
+    tokenCnt["identifier"] = 0;
+    tokenCnt["number"] = 0;
+    tokenCnt["punctuation"] = 0;
+    tokenCnt["operator"] = 0;
+    tokenCnt["string"] = 0;
+    punctuations = {'(', ')', ',', '[', ']', '{', '}', ';'};
+    reserved = {"auto", "else", "long", "switch", "break", "enum", "register", "typedef", "case", "extern", "return", "union", "char", "float", "short", "unsigned", "const", "for", "signed", "void", "continue", "goto", "sizeof", "volatile", "default", "if", "static", "while", "do", "int", "struct", "_Packed", "double"};
+    buffer[511] = 26;
+    buffer[1023] = 26;
+    DFAInitialize();
+    readFileStream.open("test.txt", ifstream::in);
+    outputFileStream.open("out.txt", ofstream::out);
+    fillLeftPart();
+    beginPtr = froPtr = 0;
+    //开始遍历.
+    State st = start;
+    string str;
+    
+    while(1){
+        if(st == doubleQuoteStat0 || st == lineCommentStat0 || st == blockCommentStat0){
+            continualTextIdentifier(st);
+            str = "";
+            st = start;
+        }
+        char curCh = buffer[froPtr];
+        charCnt++;
+        rowCharCnt++;
+        if(curCh == 26 ){ // 26 是EOF终止符
+            if(froPtr == 511){
+                fillRightPart();
+                froPtr++;
+            }
+            else if(froPtr == 1023){
+                fillLeftPart();
+                froPtr = 0;
+            }
+            else{
+                outputFileStream << "\n源程序词法分析完毕！" << endl;
+                //在这里可以添加统计信息。
+                for(auto i = tokenCnt.begin(); i != tokenCnt.end(); i++){
+                    cout << i->first << ": " << i->second << endl;
+                }
+                return 0;
+            }
+            curCh = buffer[froPtr];
+        }
+        auto iter = dfaTable.find(pair<State, char>(st, curCh));
+        if(iter != dfaTable.end()){
+            st = iter->second;
+            str += curCh;
+            froPtr++;
+        }
+        else if(allowTraceBack[st]){
+            if(st == kwdStat0){
+                bool isReserve = false;
+                for(int i = 0; i < 33; i++){
+                    if(str == reserved[i]){
+                        isReserve = true;
+                        outputFileStream << "reserved##";
+                        tokenCnt["reserved"]++;
+                        break;
+                    }
+                }
+                if(!isReserve){
+                    outputFileStream << "identifier##";
+                    tokenCnt["identifier"]++;
+                }
+                str = "";
+                beginPtr = froPtr;
+                st = start;
+            }
+            else{
+                tokenCnt[tokenTable[st]]++;
+                outputFileStream << tokenTable[st] << "##";
+                str = "";
+                beginPtr = froPtr; // 这里不加froPtr，相当于回退操作。
+                st = start;
+            }
+        }
+        else{
+            if(curCh == ' ' || curCh == '\n'){//遇到换行等，直接输出。
+                outputFileStream << curCh;
+                froPtr++;
+                beginPtr = froPtr;
+                if(curCh == '\n'){
+                    rowCnt++;
+                    rowCharCnt = 0;
+                }
+            }
+            else{
+                outputFileStream << "undefined##"; // 这里加一个错误处理机制。
+                printf("error at row: %d, line: %d\n", rowCnt, rowCharCnt);
+                str = "";
+                froPtr++;
+                beginPtr = froPtr;
+            }
+        }
+    }
+    readFileStream.close();
+    outputFileStream.close();
 }

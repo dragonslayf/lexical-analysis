@@ -1,14 +1,8 @@
-//±àĞ´CÓïÑÔ´Ê·¨·ÖÎöÔ´³ÌĞò£¬ÒªÇó£º
+// by Xie Tianyang 
 
-//¿ÉÒÔÊ¶±ğ³öÓÃcÓïÑÔ±àĞ´µÄÔ´³ÌĞòÖĞµÄÃ¿¸öµ¥´Ê·ûºÅ£¬²¢ÒÔ¼ÇºÅµÄĞÎÊ½Êä³öÃ¿¸öµ¥´Ê·ûºÅ¡£
+//¼òµ¥CÓïÑÔ´Ê·¨·ÖÎö³ÌĞò,ÊäÈëÓÉºê INPUT_FILE¶¨Òå£¬Êä³öÎÄ¼şÓÉOUTPUT_FILE¶¨Òå.
 
-//¿ÉÒÔÊ¶±ğ²¢Ìø¹ıÔ´³ÌĞòÖĞµÄ×¢ÊÍ
-
-//¿ÉÒÔÍ³¼Æµ¥´Ê¡¢×Ö·û¡¢Óï¾äµÄ¸öÊı£¬²¢Êä³öÍ³¼Æ½á¹û¡£
-
-//¿ÉÒÔ¼ì²é³öÔ´³ÌĞòÖĞ³öÏÖµÄÓï·¨´íÎó£¬²¢±¨¸æ´íÎó³öÏÖµÄÎ»ÖÃ¡£
-
-//¶ÔÔ´³ÌĞòÖĞ³öÏÖµÄ´íÎó½øĞĞ»Ö¸´£¬Ê¹µÃ´Ê·¨·ÖÎö¿ÉÒÔ¼ÌĞø½øĞĞ£¬ÇÒÖ»ĞèÒ»±éÉ¨Ãè¼´¿ÉÊä³öËùÓĞ¿É±¯·¢ÏÖµÄ´íÎó¡£
+//½«·ÖÎöºóµÄ½á¹ûÊä³öµ½OUTPUT_FILEÖĞ£¬½«´íÎóĞÅÏ¢ºÍÍ³¼ÆĞÅÏ¢Êä³öµ½¿ØÖÆÌ¨ÖĞ¡£
 
 #include<iostream>
 #include<fstream>
@@ -16,6 +10,9 @@
 #include<string>
 #include<map>
 using namespace std;
+
+#define INPUT_FILE "test.txt"
+#define OUTPUT_FILE "out.txt"
 
 array<char, 1024> buffer;// ÓÃÓÚÌáÇ°¶ÁµÄ»º³åÇø
 int beginPtr, froPtr = 0;
@@ -26,6 +23,8 @@ array<char, 52>letters;//±£´æ52¸ö´óĞ¡Ğ´×ÖÄ¸
 array<char, 62>letterNs; //±£´æ´óĞ¡Ğ´×ÖÄ¸ºÍÊ®¸öÊı×Ö¡£
 array<bool, 300>allowTraceBack; // ÈôÎªÕæ£¬Ôò³öÏÖÆäËû×Ö·ûÔÊĞí»ØÍË£¬²¢²»´ú±í³öÏÖ´íÎó¡£ÈôÎª¼Ù£¬Ôò×ªµ½´íÎó´¦Àíº¯Êı¡£
 array<char, 8>punctuations;
+int rowCnt, charCnt;
+int rowCharCnt;
 enum State{ // ×Ô¶¯×´Ì¬»úµÄ×´Ì¬¡£
     start = 0,
     kwdStat0 = 1,
@@ -40,16 +39,52 @@ enum State{ // ×Ô¶¯×´Ì¬»úµÄ×´Ì¬¡£
     slashEqualStat0 = 10,
     lineCommentStat0 = 11,
     blockCommentStat0 = 12,
-    doubleQuoteStat0 = 13
+    doubleQuoteStat0 = 13,
+
+    plusStat0 = 14,
+    minusStat0 = 15,
+    multiStat0 = 16,
+    divisionStat0 = 17,
+    modStat0 = 18,//%
+    greaterStat0 = 19,//>
+    lessStat0 = 20,//<
+    andStat0 = 21,//&
+    orStat0 = 22,// |
+    notStat0 = 23,//£¡
+    equalStat0 = 24,//µÈºÅ
+    questionStat0 = 25,//ÎÊºÅ
+    colonStat0 = 26,//Ã°ºÅ
+    classAccessStat0 = 27,//.
+    xorStat0 = 28,
+    //´ÓÕâÀïÏòÏÂ¶ÔÓ¦´ó²¿·Öµ¥Ä¿²Ù×÷·û¼ÓÉÏµÈºÅµÄ¸´ºÏ²Ù×÷·û
+    plusStat1 = 29,
+    minusStat1 = 30,
+    multiStat1 = 31,
+    divisionStat1 = 32,
+    modStat1 = 33,//%
+    greaterStat1 = 34,//>
+    lessStat1 = 35,//<
+    andStat1 = 36,//&
+    orStat1 = 37,// |
+    notStat1 = 38,//£¡
+    equalStat1 = 39,//µÈºÅ
+    xorStat1 = 40,
+    leftShiftStat0 = 41,
+    rightShiftStat0 = 42,
+    incrementStat0 = 43,
+    decrementStat0 = 44,
+    andStat2 = 45,
+    orStat2 = 46,
+    p2mStat0 = 47 // ->²Ù×÷·û£¬pointer-2-member.
+
 };
 map<pair<State, char>, State> dfaTable;
 map<State, string> tokenTable; // ¶ÔÓ¦¼ÇºÅ´òÓ¡½á¹û¡£
-
+map<string, int>tokenCnt; // Í³¼Æ¸÷¸ö¼ÇºÅµÄÊıÁ¿£¬×îºó´òÓ¡¡£
 
 
 void fillLeftPart();
 void fillRightPart();
-int wordAnalysis(int begin, int end); // ´Ê·¨·ÖÎö³ÌĞò¡£
 void DFAInitialize();  //³õÊ¼»¯DFA×´Ì¬»ú¡£
 void continualTextIdentifier(State stat); // ÓÃÓÚ¼ì²âÁ¬ĞøÎÄ±¾£¬Èç£º×Ö·û´®£¬ĞĞ×¢ÊÍºÍ×¢ÊÍ¿éµÈµÈ¡£ 
 
@@ -57,13 +92,19 @@ void continualTextIdentifier(State stat); // ÓÃÓÚ¼ì²âÁ¬ĞøÎÄ±¾£¬Èç£º×Ö·û´®£¬ĞĞ×¢Ê
 /// @brief 
 /// @return 
 int main(){
+    tokenCnt["reserved"] = 0;
+    tokenCnt["identifier"] = 0;
+    tokenCnt["number"] = 0;
+    tokenCnt["punctuation"] = 0;
+    tokenCnt["operator"] = 0;
+    tokenCnt["string"] = 0;
     punctuations = {'(', ')', ',', '[', ']', '{', '}', ';'};
     reserved = {"auto", "else", "long", "switch", "break", "enum", "register", "typedef", "case", "extern", "return", "union", "char", "float", "short", "unsigned", "const", "for", "signed", "void", "continue", "goto", "sizeof", "volatile", "default", "if", "static", "while", "do", "int", "struct", "_Packed", "double"};
     buffer[511] = 26;
     buffer[1023] = 26;
     DFAInitialize();
-    readFileStream.open("test.txt", ifstream::in);
-    outputFileStream.open("out.txt", ofstream::out);
+    readFileStream.open(INPUT_FILE, ifstream::in);
+    outputFileStream.open(OUTPUT_FILE, ofstream::out);
     fillLeftPart();
     beginPtr = froPtr = 0;
     //¿ªÊ¼±éÀú.
@@ -77,7 +118,9 @@ int main(){
             st = start;
         }
         char curCh = buffer[froPtr];
-        if(curCh == 26){ // 26 ÊÇEOFÖÕÖ¹·û
+        charCnt++;
+        rowCharCnt++;
+        if(curCh == 26 ){ // 26 ÊÇEOFÖÕÖ¹·û
             if(froPtr == 511){
                 fillRightPart();
                 froPtr++;
@@ -87,9 +130,13 @@ int main(){
                 froPtr = 0;
             }
             else{
-                outputFileStream << "\nÔ´³ÌĞò´Ê·¨·ÖÎöÍê±Ï£¡" << endl;
-                return 0;
+                cout << "\nÔ´³ÌĞò´Ê·¨·ÖÎöÍê±Ï£¡" << endl;
                 //ÔÚÕâÀï¿ÉÒÔÌí¼ÓÍ³¼ÆĞÅÏ¢¡£
+                for(auto i = tokenCnt.begin(); i != tokenCnt.end(); i++){
+                    cout << i->first << ": " << i->second << endl;
+                }
+                cout << "total chars: " << charCnt << endl; 
+                return 0;
             }
             curCh = buffer[froPtr];
         }
@@ -106,17 +153,20 @@ int main(){
                     if(str == reserved[i]){
                         isReserve = true;
                         outputFileStream << "reserved##";
+                        tokenCnt["reserved"]++;
                         break;
                     }
                 }
                 if(!isReserve){
                     outputFileStream << "identifier##";
+                    tokenCnt["identifier"]++;
                 }
                 str = "";
                 beginPtr = froPtr;
                 st = start;
             }
             else{
+                tokenCnt[tokenTable[st]]++;
                 outputFileStream << tokenTable[st] << "##";
                 str = "";
                 beginPtr = froPtr; // ÕâÀï²»¼ÓfroPtr£¬Ïàµ±ÓÚ»ØÍË²Ù×÷¡£
@@ -128,9 +178,14 @@ int main(){
                 outputFileStream << curCh;
                 froPtr++;
                 beginPtr = froPtr;
+                if(curCh == '\n'){
+                    rowCnt++;
+                    rowCharCnt = 0;
+                }
             }
             else{
                 outputFileStream << "undefined##"; // ÕâÀï¼ÓÒ»¸ö´íÎó´¦Àí»úÖÆ¡£
+                printf("error at row: %d, line: %d\n", rowCnt, rowCharCnt);
                 str = "";
                 froPtr++;
                 beginPtr = froPtr;
@@ -163,31 +218,6 @@ void fillRightPart(){
     if(i < 1023){
         buffer[i] = 26;
     }
-}
-
-int wordAnalysis(int begin, int end){
-    //´Ê·¨·ÖÎö³ÌĞò¶ÔbufferÊı×é½øĞĞ²Ù×÷£¬È¡×Ö·ûÊ±£¬ÏÂ±ê¶Ô1024È¡Óà¡£
-
-    //Óöµ½¿Õ¸ñÊä³ö¿Õ¸ñ£¬Óöµ½»»ĞĞÊä³ö»»ĞĞ£¬Óöµ½EOF£¨asciiÂëÎª26£©ºöÂÔ¡£
-
-    //Ê¶±ğ³É¹¦ºó´òÓ¡¶ÔÓ¦µÄ¼ÇºÅ±êÊ¶²¢·µ»Ø1¡£
-
-    //Ê¶±ğÊ§°Ü·µ»Ø0
-
-    //½øÈë´íÎó×´Ì¬ºóÒª½øĞĞ¾¯¸æºÍ»Ö¸´¡£
-    int st = 0;
-    if(end < begin){end = end + 1024;}
-    int index;
-    char ch;
-    for(int i = begin; i <= end; i++){
-        index = i % 1024;
-        ch = buffer[index];
-        if(ch != 26){
-            if(ch == ' '){st = 1; outputFileStream << " ";}
-            outputFileStream << ch;
-        }
-    }
-    return st;
 }
 
 void DFAInitialize(){
@@ -239,8 +269,8 @@ void DFAInitialize(){
     allowTraceBack[digitStat2] = true;
     allowTraceBack[digitStat5] = true;
     tokenTable[digitStat0] = "number";
-    tokenTable[digitStat2] = "fraction number";
-    tokenTable[digitStat5] = "exponential number";
+    tokenTable[digitStat2] = "number";
+    tokenTable[digitStat5] = "number";
 
     for(int i = 0; i < 8; i++){
         dfaTable[pair<State, char>(start, punctuations[i])] = punctuationStat0;
@@ -255,16 +285,125 @@ void DFAInitialize(){
     tokenTable[slashStat0] = "operation";
     tokenTable[slashEqualStat0] = "operation";
     tokenTable[lineCommentStat0] = "comments";
-    tokenTable[blockCommentStat0] = 'comments';
+    tokenTable[blockCommentStat0] = "comments";
     allowTraceBack[slashStat0] = true;
     allowTraceBack[slashEqualStat0] = true;
     
     dfaTable[pair<State, char>(start, '"')] = doubleQuoteStat0;
+    dfaTable[pair<State, char>(start, '\'')] = doubleQuoteStat0;
 
+    dfaTable[pair<State, char>(start, '+')] = plusStat0;
+    dfaTable[pair<State, char>(plusStat0, '+')] = incrementStat0;
+    dfaTable[pair<State, char>(plusStat0, '=')] = plusStat1;
+    allowTraceBack[plusStat0] = true;
+    allowTraceBack[plusStat1] = true;
+    allowTraceBack[incrementStat0] = true;
+    tokenTable[plusStat0] = "operator";
+    tokenTable[plusStat1] = "operator";
+    tokenTable[incrementStat0] = "operator";
+
+    dfaTable[pair<State, char>(start, '-')] = minusStat0;
+    dfaTable[pair<State, char>(minusStat0, '-')] = decrementStat0;
+    dfaTable[pair<State, char>(minusStat0, '=')] = minusStat1;
+    dfaTable[pair<State, char>(minusStat0, '>')] = p2mStat0;
+    allowTraceBack[minusStat0] = true;
+    allowTraceBack[minusStat1] = true;
+    allowTraceBack[p2mStat0] = true;
+    allowTraceBack[decrementStat0] = true;
+    tokenTable[minusStat0] = "operator";
+    tokenTable[minusStat1] = "operator";
+    tokenTable[decrementStat0] = "operator";
+    tokenTable[p2mStat0] = "operator";
+
+    dfaTable[pair<State, char>(start, '*')] = multiStat0;
+    dfaTable[pair<State, char>(multiStat0, '=')] = multiStat1;
+    allowTraceBack[multiStat0] = true;
+    allowTraceBack[multiStat1] = true;
+    tokenTable[multiStat0] = "operator";
+    tokenTable[multiStat1] = "operator";
+
+    dfaTable[pair<State, char>(start, '>')] = greaterStat0;
+    dfaTable[pair<State, char>(greaterStat0, '=')] = greaterStat1;
+    dfaTable[pair<State, char>(greaterStat0, '>')] = rightShiftStat0;
+    allowTraceBack[greaterStat0] = true;
+    allowTraceBack[greaterStat1] = true;
+    allowTraceBack[rightShiftStat0] = true;
+    tokenTable[greaterStat0] = "operator";
+    tokenTable[greaterStat1] = "operator";
+    tokenTable[rightShiftStat0] = "operator";
+
+    dfaTable[pair<State, char>(start, '<')] = lessStat0;
+    dfaTable[pair<State, char>(lessStat0, '=')] = lessStat1;
+    dfaTable[pair<State, char>(lessStat0, '<')] = leftShiftStat0;
+    allowTraceBack[lessStat0] = true;
+    allowTraceBack[lessStat1] = true;
+    allowTraceBack[leftShiftStat0] = true;
+    tokenTable[lessStat0] = "operator";
+    tokenTable[lessStat1] = "operator";
+    tokenTable[leftShiftStat0] = "operator";
+
+    dfaTable[pair<State, char>(start, '&')] = andStat0;
+    dfaTable[pair<State, char>(andStat0, '=')] = andStat1;
+    dfaTable[pair<State, char>(andStat0, '&')] = andStat2;
+    allowTraceBack[andStat0] = true;
+    allowTraceBack[andStat1] = true;
+    allowTraceBack[andStat2] = true;
+    tokenTable[andStat0] = "operator";
+    tokenTable[andStat1] = "operator";
+    tokenTable[andStat2] = "operator";
+
+    dfaTable[pair<State, char>(start, '|')] = orStat0;
+    dfaTable[pair<State, char>(orStat0, '=')] = orStat1;
+    dfaTable[pair<State, char>(orStat0, '|')] = orStat2;
+    allowTraceBack[orStat0] = true;
+    allowTraceBack[orStat1] = true;
+    allowTraceBack[orStat2] = true;
+    tokenTable[orStat0] = "operator";
+    tokenTable[orStat1] = "operator";
+    tokenTable[orStat2] = "operator";
+
+    dfaTable[pair<State, char>(start, '^')] = xorStat0;
+    dfaTable[pair<State, char>(xorStat0, '=')] = xorStat1;
+    allowTraceBack[xorStat0] = true;
+    allowTraceBack[xorStat1] = true;
+    tokenTable[xorStat0] = "operator";
+    tokenTable[xorStat1] = "operator";
+
+    dfaTable[pair<State, char>(start, '!')] = notStat0;
+    dfaTable[pair<State, char>(notStat0, '=')] = notStat1;
+    allowTraceBack[notStat0] = true;
+    allowTraceBack[notStat1] = true;
+    tokenTable[notStat0] = "operator";
+    tokenTable[notStat1] = "operator";
+
+    dfaTable[pair<State, char>(start, '?')] = questionStat0;
+    dfaTable[pair<State, char>(start, ':')] = colonStat0;
+    dfaTable[pair<State, char>(start, '.')] = classAccessStat0;
+    allowTraceBack[questionStat0] = true;
+    allowTraceBack[colonStat0] = true;
+    allowTraceBack[classAccessStat0] = true;
+    tokenTable[questionStat0] = "operator";
+    tokenTable[colonStat0] = "operator";
+    tokenTable[classAccessStat0] = "operator";
+
+    dfaTable[pair<State, char>(start, '%')] = modStat0;
+    dfaTable[pair<State, char>(modStat0, '=')] = modStat1;
+    allowTraceBack[modStat0] = true;
+    allowTraceBack[modStat1] = true;
+    tokenTable[modStat0] = "operator";
+    tokenTable[modStat1] = "operator";
+
+    dfaTable[pair<State, char>(start, '=')] = equalStat0;
+    dfaTable[pair<State, char>(equalStat0, '=')] = equalStat1;
+    allowTraceBack[equalStat0] = true;
+    allowTraceBack[equalStat1] = true;
+    tokenTable[equalStat0] = "operator";
+    tokenTable[equalStat1] = "operator";
 }
 
 void continualTextIdentifier(State stat){
     if(stat == doubleQuoteStat0){
+        tokenCnt["string"]++;
         int stat = 0; // ÔÚ0×´Ì¬ÏÂ£¬½ÓÊÕµ½ÁíÍâÒ»¸öË«ÒıºÅ½«»áÖ±½Ó½áÊø¸Ã×Ö·û´®¡£0×´Ì¬ÏÂ½ÓÊÕµ½×ªÒå×Ö·û¡¯/¡®»á½øÈë1×´Ì¬£¬1×´Ì¬¿ÉÒÔ×ªÒåÒ»¸öË«ÒıºÅ£¬Ëæºó»Øµ½0×´Ì¬¡£
         while(1){
             char curCh = buffer[froPtr];
@@ -278,14 +417,14 @@ void continualTextIdentifier(State stat){
                     froPtr = 0;
                 }
                 else{ // ÔõÃ´´¦ÀíÒ»¸öÒıºÅÖ±½Óµ½³ÌĞòÎ²µÄÇé¿ö£¿
-                    outputFileStream << "\nÔ´³ÌĞò´Ê·¨·ÖÎöÍê±Ï£¡" << endl;
+                    cout << "\nÔ´³ÌĞò´Ê·¨·ÖÎöÍê±Ï£¡" << endl;
                     return;
                 }
                 curCh = buffer[froPtr];
             }
             froPtr++;
             if(stat == 0){
-                if(curCh == '"'){
+                if(curCh == '"' || curCh == '\''){
                     outputFileStream << "string##";
                     break;
                 }
@@ -314,6 +453,8 @@ void continualTextIdentifier(State stat){
             }
             froPtr++;
             if(curCh == '\n'){
+                rowCharCnt = 0;
+                rowCnt++;
                 outputFileStream << "rowComments##" << endl;
                 break;
             }
@@ -324,6 +465,7 @@ void continualTextIdentifier(State stat){
         int stat = 0; // ´¦Àí¿é×¢ÊÍ£¬Ä¬ÈÏÎª0×´Ì¬£¬½ÓÊÕ¡®*¡¯ºó×ª»»Îª1×´Ì¬£¬1×´Ì¬ÏÂ½ÓÊÕ'/'½áÊø¿é×¢ÊÍ£¬½ÓÊÕÆäËû×Ö·û×ª»»Îª0×´Ì¬¡£
         while(1){
             char curCh = buffer[froPtr];
+            if(curCh == '\n'){rowCnt++; rowCharCnt = 0;}
             if(curCh == 26){ // 26 ÊÇEOFÖÕÖ¹·û
                 if(froPtr == 511){
                     fillRightPart();
